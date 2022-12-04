@@ -1,0 +1,67 @@
+﻿<Page x:Class="WpfBleApp.CommPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfBleApp" xmlns:widget="clr-namespace:WpfBleApp.Widget"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CommPage">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Content="{Binding DeviceName}"
+                   FontSize="22" FontWeight="Bold"/>
+            <Label Grid.Column="1" Content="{Binding DeviceAddress}" Margin="0, 10, 0, 0"/>
+            <Label Grid.Column="2"/>
+            <Button Grid.Column="3" x:Name="buttonConnect" 
+                    Width="72" Height="24" Margin="10, 0, 0, 0" Click="buttonConnect_Click">连接设备</Button>
+        </Grid>
+        <Label Grid.Row="1" Content="RX"/>
+        <!-- Log区，禁止 ListBox 横向滚动 TextBlock 才能实现自动换行 -->
+        <widget:AutoScrollListBox Grid.Row="2" x:Name="listBoxLog" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- 自动换行 -->
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </widget:AutoScrollListBox>
+        <Label Grid.Row="3" Content="TX"/>
+        <!-- 发送数据 -->
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="textBoxTxData" MaxLines="10" Text="{Binding TxDataHex, Mode=TwoWay}"/>
+            <Button Grid.Column="1" x:Name="buttonSend" Click="buttonSend_Click"
+                    Width="72" Height="24" Margin="10, 0, 0, 0">发送</Button>
+            <Button Grid.Column="2" x:Name="buttonRead" 
+                    Width="72" Height="24" Margin="10, 0, 0, 0" Click="buttonRead_Click">读取名称</Button>
+        </Grid>
+    </Grid>
+</Page>
