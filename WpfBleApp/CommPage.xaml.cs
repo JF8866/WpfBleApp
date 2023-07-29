@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -118,6 +119,14 @@ namespace WpfBleApp
             {
                 ViewModel.BleDevice.Connect();
             }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Page_Unloaded()");
+            ViewModel.BleDevice.CharacteristicValueChanged -= BleDevice_CharacteristicValueChanged;
+            ViewModel.BleDevice.ConnectionStateChanged -= BleDevice_ConnectionStateChanged;
+            ViewModel.BleDevice.Disconnect();
         }
     }
 }

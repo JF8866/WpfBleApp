@@ -111,9 +111,6 @@ namespace WpfBleApp.Ble
         /// </summary>
         public async void Connect()
         {
-            //下面一行是官方文档的写法，貌似版本低所以报错
-            //BluetoothLEDevice bluetoothLEDevice = await BluetoothLEDevice.FromIdAsync(Id);
-
             //使用自定义的拓展方法 GetResultAsync()
             _device = await BluetoothLEDevice.FromIdAsync(Id);
             //监听连接状态
@@ -130,6 +127,7 @@ namespace WpfBleApp.Ble
             }
             else
             {
+                Disconnected();
                 ConnectionStateChanged?.Invoke(this, false);
             }
         }
@@ -250,9 +248,23 @@ namespace WpfBleApp.Ble
                 service.Dispose();
             }
 
-            _device?.Dispose();
+            Disconnected();
             //_device = null;//赋值为 null 会导致收不到断线的通知
             //ConnectionStateChanged?.Invoke(this, false);
+        }
+
+        private void Disconnected()
+        {
+            GattServices.Clear();
+            GattCharacteristics.Clear();
+            CharacteristicWrite = null;
+            CharacteristicNotify = null;
+
+            if (_device != null)
+            {
+                _device.Dispose();
+                _device = null;
+            }
         }
 
         public override string ToString()

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:WpfBleApp" xmlns:widget="clr-namespace:WpfBleApp.Widget"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CommPage">
+      Title="CommPage" Unloaded="Page_Unloaded">
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
