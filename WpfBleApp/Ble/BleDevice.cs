@@ -115,7 +115,7 @@ namespace WpfBleApp.Ble
             //BluetoothLEDevice bluetoothLEDevice = await BluetoothLEDevice.FromIdAsync(Id);
 
             //使用自定义的拓展方法 GetResultAsync()
-            _device = await BluetoothLEDevice.FromIdAsync(Id).GetResultAsync();
+            _device = await BluetoothLEDevice.FromIdAsync(Id);
             //监听连接状态
             _device.ConnectionStatusChanged += _device_ConnectionStatusChanged;
             Log.Info($"{DateTime.Now:HH:mm:ss.fff} - 开始连接: " + _device);
@@ -139,7 +139,7 @@ namespace WpfBleApp.Ble
             GattServices.Clear();
             GattCharacteristics.Clear();
 
-            GattDeviceServicesResult servicesResult = await _device.GetGattServicesAsync().GetResultAsync();
+            GattDeviceServicesResult servicesResult = await _device.GetGattServicesAsync();
             if (servicesResult.Status == GattCommunicationStatus.Success)
             {
                 foreach (GattDeviceService service in servicesResult.Services)
@@ -149,7 +149,7 @@ namespace WpfBleApp.Ble
 
                     string serviceUuid = service.Uuid.ToString();
                     Log.Info($"Gatt Service: {serviceUuid}");
-                    GattCharacteristicsResult characteristicsResult = await service.GetCharacteristicsAsync().GetResultAsync();
+                    GattCharacteristicsResult characteristicsResult = await service.GetCharacteristicsAsync();
                     if (characteristicsResult.Status == GattCommunicationStatus.Success)
                     {
                         foreach (GattCharacteristic characteristic in characteristicsResult.Characteristics)
@@ -202,7 +202,7 @@ namespace WpfBleApp.Ble
             GattCommunicationStatus result = await characteristic
                 .WriteClientCharacteristicConfigurationDescriptorAsync(
                     GattClientCharacteristicConfigurationDescriptorValue.Notify
-                ).GetResultAsync();
+                );
             return result == GattCommunicationStatus.Success;
         }
 
@@ -215,8 +215,7 @@ namespace WpfBleApp.Ble
             DataWriter writer = new DataWriter();
             writer.WriteBytes(data);
             GattCommunicationStatus result = await CharacteristicWrite
-                .WriteValueAsync(writer.DetachBuffer(), GattWriteOption.WriteWithoutResponse)
-                .GetResultAsync();
+                .WriteValueAsync(writer.DetachBuffer(), GattWriteOption.WriteWithoutResponse);
             return result == GattCommunicationStatus.Success;
         }
 
@@ -225,7 +224,7 @@ namespace WpfBleApp.Ble
             GattCharacteristic characteristic = GattCharacteristics[serviceUuid]?[characteristicUuid];
             if (characteristic != null)
             {
-                GattReadResult result = await characteristic.ReadValueAsync().GetResultAsync();
+                GattReadResult result = await characteristic.ReadValueAsync();
                 if (result.Status == GattCommunicationStatus.Success)
                 {
                     byte[] data = result.Value.ToBytes();

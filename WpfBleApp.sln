@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfBleApp", "WpfBleApp\WpfBleApp.csproj", "{7B23D211-F9E4-40C9-AAF7-D7E1A895E7CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfBleApp", "WpfBleApp\WpfBleApp.csproj", "{7B23D211-F9E4-40C9-AAF7-D7E1A895E7CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{9D05234C-1E00-4EF9-B4BD-5F25DBC6743E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{9D05234C-1E00-4EF9-B4BD-5F25DBC6743E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
